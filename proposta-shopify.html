@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta Comercial — E-commerce Shopify Luciano</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --accent:#b06fff;
+  --accent2:#9d5cff;
+  --purple:#7c3aff;
+  --dark:#050508;
+  --dark2:#09090f;
+  --dark3:#0f0f18;
+  --card:#111118;
+  --text:#f0ede8;
+  --muted:rgba(240,237,232,0.42);
+  --border:rgba(176,111,255,0.08);
+  --border2:rgba(176,111,255,0.18);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--dark);
+  color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* CUSTOM CURSOR */
+#cursor{
+  position:fixed;width:10px;height:10px;border-radius:50%;
+  background:var(--accent);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);mix-blend-mode:difference;
+  transition:width 0.2s,height 0.2s;
+}
+#cursor-ring{
+  position:fixed;width:44px;height:44px;border-radius:50%;
+  border:1.5px solid rgba(200,245,58,0.35);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:width 0.35s,height 0.35s,border-color 0.3s;
+}
+body:has(button:hover) #cursor-ring,
+body:has(a:hover) #cursor-ring{width:64px;height:64px;border-color:rgba(200,245,58,0.6)}
+
+/* AURORA BG */
+.aurora{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+}
+.aurora-blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:0;
+  animation:floatBlob 18s ease-in-out infinite;
+}
+.aurora-blob:nth-child(1){width:700px;height:500px;left:-100px;top:10%;background:radial-gradient(circle,rgba(176,111,255,0.18),transparent 70%);animation-delay:0s}
+.aurora-blob:nth-child(2){width:500px;height:600px;right:-50px;top:30%;background:radial-gradient(circle,rgba(124,58,255,0.1),transparent 70%);animation-delay:-6s}
+.aurora-blob:nth-child(3){width:600px;height:400px;left:30%;bottom:10%;background:radial-gradient(circle,rgba(157,92,255,0.12),transparent 70%);animation-delay:-12s}
+@keyframes floatBlob{
+  0%{opacity:0;transform:translate(0,0) scale(1)}
+  20%{opacity:1}
+  50%{transform:translate(40px,-30px) scale(1.1)}
+  80%{opacity:1}
+  100%{opacity:0;transform:translate(0,0) scale(1)}
+}
+
+/* NOISE */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.025;pointer-events:none;z-index:1;
+}
+
+/* CANVAS */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.25}
+
+section{position:relative;z-index:2}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:1.2rem 3rem;display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(24px) saturate(180%);
+  border-bottom:1px solid var(--border);
+  background:rgba(5,5,8,0.55);
+}
+.nav-logo img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 50px;
+  display: block;
+  object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+  .nav-logo img {
+    max-height: 44px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-logo img {
+    max-height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-logo img {
+    max-height: 32px;
+  }
+}
+.nav-logo{font-family:'Clash Display',sans-serif;font-weight:700;font-size:1.05rem;letter-spacing:-0.01em}
+.nav-logo span{color:var(--accent)}
+.nav-tag{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--border);padding:6px 16px;border-radius:100px;
+  background:rgba(200,245,58,0.04);
+}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:8px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+
+/* HERO */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:8rem 3rem 4rem;position:relative;overflow:hidden;
+}
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(200,245,58,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(200,245,58,0.03) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 30%,transparent 100%);
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:2.5rem;opacity:0;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;
+}
+.hero-tag-pill{background:rgba(200,245,58,0.1);border:1px solid rgba(200,245,58,0.2);padding:3px 10px;border-radius:100px}
+.hero h1{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(3.8rem,9vw,8rem);line-height:0.92;
+  letter-spacing:-0.04em;margin-bottom:2.2rem;opacity:0;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .accent{color:var(--accent)}
+.hero h1 .italic{font-family:'Fraunces',serif;font-style:italic;font-weight:300;color:rgba(240,237,232,0.35);letter-spacing:-0.02em}
+.hero-desc{
+  font-size:1.05rem;color:var(--muted);max-width:500px;line-height:1.85;
+  margin-bottom:3rem;opacity:0;font-weight:400;
+}
+.hero-cta-row{display:flex;gap:1rem;align-items:center;opacity:0;flex-wrap:wrap}
+.btn-primary{
+  background:var(--accent);color:#fff;
+  font-family:'Clash Display',sans-serif;font-weight:600;font-size:14px;
+  padding:15px 34px;border-radius:100px;border:none;cursor:none;
+  letter-spacing:0.01em;transition:transform 0.2s,box-shadow 0.2s,background 0.2s;
+  box-shadow:0 0 40px rgba(176,111,255,0.25);
+  position:relative;overflow:hidden;
+}
+.btn-primary::before{
+  content:'';position:absolute;inset:0;background:rgba(255,255,255,0.12);
+  transform:translateX(-105%) skewX(-15deg);transition:transform 0.5s ease;
+}
+.btn-primary:hover::before{transform:translateX(105%) skewX(-15deg)}
+.btn-primary:hover{transform:scale(1.04);box-shadow:0 0 60px rgba(176,111,255,0.45);background:var(--accent2)}
+.btn-ghost{
+  border:1px solid var(--border2);color:var(--muted);background:transparent;
+  font-family:'Clash Display',sans-serif;font-size:14px;padding:15px 30px;
+  border-radius:100px;cursor:none;transition:border-color 0.2s,color 0.2s,background 0.2s;
+}
+.btn-ghost:hover{border-color:rgba(240,237,232,0.35);color:var(--text);background:rgba(240,237,232,0.04)}
+.hero-stats{
+  position:absolute;right:3rem;bottom:4rem;
+  display:flex;flex-direction:column;gap:1.8rem;opacity:0;
+}
+.stat{text-align:right}
+.stat-num{font-family:'Clash Display',sans-serif;font-size:2.4rem;font-weight:700;color:var(--accent);line-height:1}
+.stat-label{font-size:10px;color:var(--muted);letter-spacing:0.1em;margin-top:4px;text-transform:uppercase}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:3rem;
+  display:flex;align-items:center;gap:14px;
+  font-size:10px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;opacity:0;
+}
+.scroll-line{width:40px;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+
+/* SECTION COMMON */
+.section-tag{
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.5rem;display:inline-flex;align-items:center;gap:10px;
+  font-weight:500;
+}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+
+/* ABOUT */
+.about{padding:7rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2.2rem,4.5vw,3.5rem);line-height:1.05;
+  letter-spacing:-0.04em;margin-bottom:1.5rem;
+}
+.about h2 em{font-style:italic;font-family:'Fraunces',serif;font-weight:300;color:var(--muted)}
+.about-text{color:var(--muted);line-height:1.95;font-size:0.95rem;margin-bottom:2.5rem}
+.about-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.metric-box{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:20px;padding:1.6rem;transition:border-color 0.3s,transform 0.3s;
+}
+.metric-box:hover{border-color:var(--border2);transform:translateY(-3px)}
+.metric-val{font-family:'Clash Display',sans-serif;font-size:2rem;font-weight:700;color:var(--accent)}
+.metric-lbl{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:0.04em}
+.about-right{position:relative}
+.about-img-frame{
+  background:linear-gradient(135deg,var(--card),var(--dark2));
+  border:1px solid var(--border);
+  border-radius:28px;padding:2rem;aspect-ratio:4/5;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.about-img-frame .inner-glow{
+  position:absolute;top:0;left:0;right:0;height:200px;
+  background:linear-gradient(180deg,rgba(200,245,58,0.06),transparent);
+}
+.profile-icon{
+  width:120px;height:120px;border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),#7c3aff);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Clash Display',sans-serif;font-size:3rem;font-weight:700;color:#050508;
+}
+.about-badge{
+  position:absolute;bottom:-1rem;right:-1rem;
+  background:var(--accent);color:#050508;
+  font-family:'Clash Display',sans-serif;font-weight:700;font-size:12px;
+  padding:10px 20px;border-radius:100px;
+  box-shadow:0 0 30px rgba(176,111,255,0.4);
+}
+.about-img-frame{
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-photo{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+  border-radius: inherit;
+}
+/* PORTFOLIO */
+.portfolio{padding:6rem 3rem}
+.portfolio-header{margin-bottom:3rem}
+.portfolio h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.04em;
+}
+.gallery-track-wrap{overflow:hidden;position:relative;margin:0 -3rem}
+.gallery-track-wrap::before,
+.gallery-track-wrap::after{
+  content:'';position:absolute;top:0;bottom:0;width:120px;z-index:10;pointer-events:none;
+}
+.gallery-track-wrap::before{left:0;background:linear-gradient(90deg,var(--dark),transparent)}
+.gallery-track-wrap::after{right:0;background:linear-gradient(-90deg,var(--dark),transparent)}
+.gallery-track{display:flex;gap:1.5rem;cursor:none;will-change:transform;padding:0 3rem}
+.gallery-card{
+  flex:0 0 310px;height:400px;border-radius:24px;
+  background:var(--card);border:1px solid var(--border);
+  overflow:hidden;position:relative;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.gallery-card:hover{border-color:rgba(200,245,58,0.25);transform:translateY(-6px)}
+.gallery-card-bg{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;opacity:0.06;transition:opacity 0.4s;
+}
+.gallery-card:hover .gallery-card-bg{opacity:0.12}
+.gallery-card-content{
+  position:absolute;bottom:0;left:0;right:0;padding:1.5rem;
+  background:linear-gradient(0deg,rgba(5,5,8,0.97) 0%,transparent 100%);
+}
+.gallery-card-tag{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.gallery-card-title{font-family:'Clash Display',sans-serif;font-weight:600;font-size:1.1rem}
+.gallery-card-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.gallery-card .hover-reveal{
+  position:absolute;top:1rem;right:1rem;
+  width:38px;height:38px;border-radius:50%;
+  background:var(--accent);display:flex;align-items:center;justify-content:center;
+  color:#050508;font-size:14px;opacity:0;transform:scale(0.6) rotate(-45deg);
+  transition:opacity 0.3s,transform 0.3s;
+}
+.gallery-card:hover .hover-reveal{opacity:1;transform:scale(1) rotate(0)}
+.gallery-accent-1{background:linear-gradient(145deg,#13082a,#0a0a12)}
+.gallery-accent-2{background:linear-gradient(145deg,#071a07,#0a0a12)}
+.gallery-accent-3{background:linear-gradient(145deg,#1a0f07,#0a0a12)}
+.gallery-accent-4{background:linear-gradient(145deg,#07101a,#0a0a12)}
+.gallery-accent-5{background:linear-gradient(145deg,#180718,#0a0a12)}
+.gallery-accent-6{background:linear-gradient(145deg,#1a1207,#0a0a12)}
+
+/* DELIVERABLES */
+.deliverables{padding:7rem 3rem;background:var(--dark2)}
+.deliverables h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.04em;margin-bottom:3rem;
+}
+.deliverables h2 span{color:var(--accent)}
+.deliv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem}
+.deliv-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:24px;padding:2.2rem;position:relative;overflow:hidden;
+  transition:border-color 0.3s,transform 0.3s;
+}
+.deliv-item:hover{border-color:rgba(200,245,58,0.2);transform:translateY(-5px)}
+.deliv-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.deliv-item:hover::before{opacity:1}
+.deliv-num{
+  font-family:'Fraunces',serif;font-size:3.5rem;font-weight:300;
+  color:rgba(200,245,58,0.1);line-height:1;margin-bottom:1rem;font-style:italic;
+}
+.deliv-title{font-family:'Clash Display',sans-serif;font-weight:600;font-size:1rem;margin-bottom:0.7rem}
+.deliv-text{font-size:13px;color:var(--muted);line-height:1.75}
+.deliv-check{
+  display:flex;align-items:center;gap:8px;
+  font-size:11px;color:var(--muted);margin-top:1.3rem;padding-top:1.3rem;
+  border-top:1px solid var(--border);
+}
+.deliv-check-dot{
+  width:18px;height:18px;border-radius:50%;
+  background:rgba(200,245,58,0.1);border:1px solid rgba(200,245,58,0.25);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.deliv-check-dot::after{content:'✓';font-size:9px;color:var(--accent)}
+
+/* PROCESS */
+.process{padding:7rem 3rem}
+.process h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.04em;margin-bottom:3rem;
+}
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(180deg,var(--accent),rgba(139,92,246,0.5),transparent);
+}
+.timeline-item{position:relative;padding:0 0 3.5rem 3rem}
+.timeline-item::before{
+  content:'';position:absolute;left:-5px;top:8px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 20px rgba(200,245,58,0.5);
+  transition:box-shadow 0.3s;
+}
+.timeline-item:hover::before{box-shadow:0 0 30px rgba(200,245,58,0.8)}
+.timeline-step{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.timeline-title{font-family:'Clash Display',sans-serif;font-weight:600;font-size:1.25rem;margin-bottom:6px}
+.timeline-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:500px}
+.timeline-time{
+  display:inline-block;margin-top:12px;
+  font-size:10px;color:var(--muted);border:1px solid var(--border);
+  padding:4px 14px;border-radius:100px;
+}
+
+/* INVESTMENT */
+.investment{
+  padding:7rem 3rem;background:var(--dark2);
+  position:relative;overflow:hidden;
+}
+.investment::before{
+  content:'';position:absolute;top:50%;right:-100px;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(176,111,255,0.06),transparent 70%);
+  transform:translateY(-50%);pointer-events:none;
+}
+.investment h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.04em;margin-bottom:3rem;
+}
+.investment h2 span{color:var(--accent)}
+.invest-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.invest-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:24px;padding:2.2rem;transition:border-color 0.3s;
+}
+.invest-card:hover{border-color:var(--border2)}
+.invest-card-tag{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1.2rem;
+}
+.invest-card-title{font-family:'Clash Display',sans-serif;font-weight:600;font-size:1.15rem;margin-bottom:1rem;color:var(--text)}
+.invest-card-items{list-style:none}
+.invest-card-items li{
+  font-size:13px;color:var(--muted);padding:7px 0;
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;
+}
+.invest-card-items li:last-child{border-bottom:none}
+.invest-card-items li::before{content:'→';color:var(--accent);font-size:10px;flex-shrink:0}
+.invest-card-items li strong{color:var(--text);font-weight:500}
+
+/* TOTAL CARD */
+.total-card{
+  background:var(--card);border:1px solid rgba(200,245,58,0.2);
+  border-radius:28px;padding:2.8rem;
+  display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;
+  box-shadow:0 0 80px rgba(200,245,58,0.05);
+  position:relative;overflow:hidden;
+}
+.total-card::before{
+  content:'';position:absolute;inset:0;border-radius:28px;
+  background:linear-gradient(135deg,rgba(176,111,255,0.04),transparent 50%);
+  pointer-events:none;
+}
+.total-tag{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
+.total-price{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(3rem,6vw,4.5rem);color:var(--accent);letter-spacing:-0.05em;line-height:1;
+}
+.old-price{font-size:13px;color:var(--muted);text-decoration:line-through;margin-top:4px}
+.total-note{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.7}
+.total-cta{display:flex;flex-direction:column;gap:1.2rem;align-items:flex-end}
+.discount-badge{
+  background:rgba(176,111,255,0.1);border:1px solid rgba(176,111,255,0.25);
+  color:var(--accent);font-family:'Clash Display',sans-serif;font-weight:700;font-size:13px;
+  padding:10px 20px;border-radius:100px;text-align:center;
+}
+
+/* FOOTER CTA */
+.footer-cta{
+  min-height:75vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:6rem 3rem;position:relative;overflow:hidden;
+}
+.footer-cta-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:800px;height:500px;
+  background:radial-gradient(ellipse,rgba(176,111,255,0.1) 0%,rgba(124,58,255,0.06) 40%,transparent 70%);
+  filter:blur(60px);pointer-events:none;
+}
+.footer-cta h2{
+  font-family:'Clash Display',sans-serif;font-weight:700;
+  font-size:clamp(2.8rem,7vw,5.5rem);letter-spacing:-0.05em;
+  line-height:1;margin-bottom:1.5rem;
+}
+.footer-cta h2 .outline{
+  -webkit-text-stroke:1px rgba(240,237,232,0.2);color:transparent;
+}
+.footer-cta p{font-size:1rem;color:var(--muted);max-width:500px;margin:0 auto 2.5rem;line-height:1.85}
+.footer-bottom{
+  background:var(--dark2);border-top:1px solid var(--border);
+  padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;
+}
+.footer-bottom-logo{font-family:'Clash Display',sans-serif;font-weight:700;font-size:1rem}
+.footer-bottom-logo span{color:var(--accent)}
+.footer-bottom-text{font-size:12px;color:var(--muted)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem}
+  .hero{padding:7rem 1.5rem 3rem}
+  .hero h1{font-size:3.2rem}
+  .hero-stats{position:relative;right:auto;bottom:auto;flex-direction:row;flex-wrap:wrap;gap:1rem;margin-top:2rem;opacity:1}
+  .about{grid-template-columns:1fr;padding:4rem 1.5rem}
+  .about-right{display:none}
+  .portfolio{padding:4rem 1.5rem}
+  .deliverables{padding:4rem 1.5rem}
+  .deliv-grid{grid-template-columns:1fr}
+  .process{padding:4rem 1.5rem}
+  .investment{padding:4rem 1.5rem}
+  .invest-grid{grid-template-columns:1fr}
+  .total-card{grid-template-columns:1fr}
+  .total-cta{align-items:flex-start}
+  .footer-cta{padding:4rem 1.5rem}
+  .footer-bottom{flex-direction:column;gap:1rem;padding:1.5rem;text-align:center}
+}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(45px)}
+.reveal-left{opacity:0;transform:translateX(-50px)}
+.reveal-right{opacity:0;transform:translateX(50px)}
+.reveal-scale{opacity:0;transform:scale(0.88)}
+
+/* SHIMMER ON CARDS */
+@keyframes shimmer{
+  0%{background-position:-400px 0}
+  100%{background-position:400px 0}
+}
+.shimmer-line{
+  height:1px;background:linear-gradient(90deg,transparent,rgba(200,245,58,0.4),transparent);
+  background-size:400px 100%;animation:shimmer 3s linear infinite;
+  margin:1rem 0;
+}
+
+/* HIGHLIGHT BOX */
+.highlight-box{
+  background:rgba(176,111,255,0.05);border:1px solid rgba(176,111,255,0.15);
+  border-radius:16px;padding:1.5rem 2rem;margin-top:2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.highlight-icon{font-size:1.5rem}
+.highlight-text{font-size:13px;color:var(--muted);line-height:1.7}
+.highlight-text strong{color:var(--text)}
+
+.footer-bottom-logo img{
+  max-height: 42px;
+  width: auto;
+  display: block;
+}
+
+.gallery-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: transparent;
+}
+
+.gallery-card-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  z-index: 1;
+  border-radius: 28px;
+}
+
+/* remove a sombra/overlay escuro */
+.gallery-card::after{
+  display: none !important;
+  content: none !important;
+}
+
+/* mantém o conteúdo acima da imagem */
+.gallery-card-content,
+.hover-reveal{
+  position: relative;
+  z-index: 3;
+}
+
+/* opcional: melhora leitura do texto sem escurecer a imagem toda */
+.gallery-card-content{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 22px 22px 18px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.22), rgba(0,0,0,0));
+  border-radius: 28px 28px 0 0;
+}
+
+/* se quiser tirar qualquer fundo antigo do emoji/bloco */
+.gallery-card-bg{
+  display: none !important;
+}
+
+.gallery-card{
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #0b0b12;
+}
+
+.gallery-card-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 28px;
+  z-index: 1;
+}
+
+.gallery-card-bg,
+.gallery-card::after{
+  display: none !important;
+  content: none !important;
+}
+
+.gallery-card-content{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 22px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.32), rgba(0,0,0,0));
+  border-radius: 28px 28px 0 0;
+}
+
+.hover-reveal{
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 4;
+}
+
+@media (max-width: 768px){
+  .gallery-card,
+  .gallery-card-image{
+    border-radius: 22px;
+  }
+
+  .gallery-card-content{
+    padding: 18px;
+    border-radius: 22px 22px 0 0;
+  }
+}
+.gallery-card{
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 28px !important;
+  width: min(88vw, 760px) !important;
+  min-width: min(88vw, 760px) !important;
+  max-width: min(88vw, 760px) !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9 !important;
+  flex: 0 0 min(88vw, 760px) !important;
+  background: #0b0b12 !important;
+}
+
+.gallery-card-image{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: cover !important;
+  object-position: top center !important;
+  border-radius: 28px !important;
+  z-index: 1 !important;
+}
+
+.gallery-card-bg,
+.gallery-card::after{
+  display: none !important;
+  content: none !important;
+}
+
+.gallery-card-content{
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 3 !important;
+  padding: 22px !important;
+  background: linear-gradient(to bottom, rgba(0,0,0,.20), rgba(0,0,0,0)) !important;
+  border-radius: 28px 28px 0 0 !important;
+}
+
+.hover-reveal{
+  position: absolute !important;
+  top: 18px !important;
+  right: 18px !important;
+  z-index: 4 !important;
+}
+
+@media (max-width: 768px){
+  .gallery-card{
+    width: 92vw !important;
+    min-width: 92vw !important;
+    max-width: 92vw !important;
+    flex: 0 0 92vw !important;
+    border-radius: 22px !important;
+  }
+
+  .gallery-card-image{
+    border-radius: 22px !important;
+  }
+
+  .gallery-card-content{
+    padding: 16px !important;
+    border-radius: 22px 22px 0 0 !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="aurora">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="/Logo Splendor.svg" alt="Splendor">
+  </div>
+  <div class="nav-tag"><span class="nav-dot"></span>Italo Rafael</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-tag" id="hero-tag">
+    <span class="hero-tag-pill">✦ Proposta Exclusiva</span>
+    Para Luciano
+  </div>
+
+  <h1 id="hero-title">
+    <span class="line">Seu E-commerce</span>
+    <span class="line accent">Shopify</span>
+    <span class="line italic">Profissional.</span>
+  </h1>
+
+  <p class="hero-desc" id="hero-desc">
+    Uma loja completa, veloz e otimizada para converter visitantes em clientes. 
+    Do design ao lançamento, cada detalhe pensado para escalar seu negócio.
+  </p>
+
+<div class="hero-cta-row" id="hero-cta">
+  <button class="btn-primary" onclick="window.open('https://wa.me/5562991865807','_blank')">
+    Quero minha loja →
+  </button>
+
+  <button class="btn-ghost" onclick="document.getElementById('investment').scrollIntoView({ behavior: 'smooth' })">
+    Ver investimento
+  </button>
+</div>
+
+  <div class="hero-stats" id="hero-stats">
+    <div class="stat"><div class="stat-num" data-count="98">0</div><div class="stat-label">Performance Score</div></div>
+    <div class="stat"><div class="stat-num" data-count="10">0</div><div class="stat-label">Dias de entrega</div></div>
+    <div class="stat"><div class="stat-num" data-count="50">0</div><div class="stat-label">Lojas entregues</div></div>
+  </div>
+
+  <div class="scroll-hint" id="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Role para baixo</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="section-tag reveal">Quem faz</div>
+    <h2 class="reveal">Por trás do <em>seu projeto</em></h2>
+    <p class="about-text reveal">
+      Especialista em e-commerce com foco total em Shopify. Crio lojas que vendem de verdade,
+      combinando design que converte, layout limpo e estratégia de produto. 
+      Cada detalhe é pensado para que seu cliente compre com confiança.
+    </p>
+    <div class="about-metrics">
+      <div class="metric-box reveal-scale"><div class="metric-val">+50</div><div class="metric-lbl">Lojas entregues</div></div>
+      <div class="metric-box reveal-scale"><div class="metric-val">R$300 Mil</div><div class="metric-lbl">Gerado em vendas</div></div>
+      <div class="metric-box reveal-scale"><div class="metric-val">10 dias</div><div class="metric-lbl">Prazo médio</div></div>
+      <div class="metric-box reveal-scale"><div class="metric-val">100%</div><div class="metric-lbl">Satisfação</div></div>
+    </div>
+  </div>
+  <div class="about-right reveal-right">
+  <div class="about-img-frame">
+    <div class="inner-glow"></div>
+    <img src="/Italo.jpeg" alt="Foto de perfil" class="profile-photo">
+  </div>
+  <div class="about-badge">Shopify Partner ✦</div>
+</div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-header">
+    <div class="section-tag reveal">Galeria de Projetos</div>
+    <h2 class="reveal">Lojas que já <span style="color:var(--accent)">criamos</span></h2>
+  </div>
+
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="galleryTrack">
+
+      <!-- CARD 1: Koda Box -->
+      <div class="gallery-card gallery-accent-4" onclick="window.open('https://kodabox.com.br','_blank')" style="cursor:none">
+        <img src="/Koda-Box-04-02-2026_09_15_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#5f8cff,#2d5cff);opacity:0.22"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Tech & Periféricos</div>
+          <div class="gallery-card-title">Koda Box</div>
+          <div class="gallery-card-sub">kodabox.com.br</div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Vitvy Semijoias -->
+      <div class="gallery-card gallery-accent-1" onclick="window.open('https://vitvysemijoias.com.br','_blank')" style="cursor:none">
+        <img src="/Vitvy-Semijoias-—-Sofisticação-e-elegância-em-cada-detalhe-04-02-2026_09_08_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#b06fff,#7c3aff);opacity:0.28"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Semijoias de Luxo</div>
+          <div class="gallery-card-title">Vitvy Semijoias</div>
+          <div class="gallery-card-sub">vitvysemijoias.com.br</div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Gisele Semijoais -->
+      <div class="gallery-card gallery-accent-5" onclick="window.open('https://giselesemijoais.lojavirtualnuvem.com.br','_blank')" style="cursor:none">
+        <img src="/Loja-online-de-Gisele-semijoais-04-02-2026_09_11_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ff5ccc,#9d2dff);opacity:0.22"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Semijoias</div>
+          <div class="gallery-card-title">Gisele Semijoias</div>
+          <div class="gallery-card-sub">giselesemijoais.lojavirtualnuvem.com.br</div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Silk Home -->
+      <div class="gallery-card gallery-accent-3" onclick="window.open('https://silkhome.lojavirtualnuvem.com.br','_blank')" style="cursor:none">
+        <img src="/Loja-online-de-Silk-Home-04-02-2026_09_12_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ff8c5f,#ff5c2d);opacity:0.2"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Casa & Decoração</div>
+          <div class="gallery-card-title">Silk Home</div>
+          <div class="gallery-card-sub">silkhome.lojavirtualnuvem.com.br</div>
+        </div>
+      </div>
+
+      <!-- CARD 5: Cheia de Charme -->
+      <div class="gallery-card gallery-accent-5" onclick="window.open('https://cheiadecharme198.lojavirtualnuvem.com.br','_blank')" style="cursor:none">
+        <img src="/Cheia-de-Charme-04-02-2026_09_13_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ff5ccc,#b06fff);opacity:0.22"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Moda Feminina</div>
+          <div class="gallery-card-title">Cheia de Charme</div>
+          <div class="gallery-card-sub">cheiadecharme198.lojavirtualnuvem.com.br</div>
+        </div>
+      </div>
+
+      <!-- CARD 6: A Patroa -->
+      <div class="gallery-card gallery-accent-1" onclick="window.open('https://www.lojaapatroa.com.br','_blank')" style="cursor:none">
+        <img src="/A-Patroa-04-02-2026_09_14_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+          <div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#9d5cff,#5c2dff);opacity:0.28"></div>
+        </div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content">
+          <div class="gallery-card-tag">Moda & Lifestyle</div>
+          <div class="gallery-card-title">A Patroa</div>
+          <div class="gallery-card-sub">lojaapatroa.com.br</div>
+        </div>
+      </div>
+
+      <!-- DUPLICATAS para scroll infinito -->
+      <div class="gallery-card gallery-accent-4" onclick="window.open('https://kodabox.com.br','_blank')" style="cursor:none">
+        <img src="/Koda-Box-04-02-2026_09_15_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#5f8cff,#2d5cff);opacity:0.22"></div></div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content"><div class="gallery-card-tag">Tech & Periféricos</div><div class="gallery-card-title">Koda Box</div><div class="gallery-card-sub">kodabox.com.br</div></div>
+      </div>
+      <div class="gallery-card gallery-accent-1" onclick="window.open('https://vitvysemijoias.com.br','_blank')" style="cursor:none">
+        <img src="/Vitvy-Semijoias-—-Sofisticação-e-elegância-em-cada-detalhe-04-02-2026_09_08_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#b06fff,#7c3aff);opacity:0.28"></div></div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content"><div class="gallery-card-tag">Semijoias de Luxo</div><div class="gallery-card-title">Vitvy Semijoias</div><div class="gallery-card-sub">vitvysemijoias.com.br</div></div>
+      </div>
+      <div class="gallery-card gallery-accent-3" onclick="window.open('https://www.lojaapatroa.com.br','_blank')" style="cursor:none">
+        <img src="/A-Patroa-04-02-2026_09_14_AM.png" alt="Koda Box" class="gallery-card-image">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><div style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#9d5cff,#5c2dff);opacity:0.28"></div></div>
+        <div class="hover-reveal">↗</div>
+        <div class="gallery-card-content"><div class="gallery-card-tag">Moda & Lifestyle</div><div class="gallery-card-title">A Patroa</div><div class="gallery-card-sub">lojaapatroa.com.br</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliverables" id="deliverables">
+  <div class="section-tag reveal">O que você recebe</div>
+  <h2 class="reveal">Tudo que você precisa para <span>vender</span></h2>
+
+  <div class="deliv-grid">
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">01</div>
+      <div class="deliv-title">Setup Completo Shopify</div>
+      <div class="deliv-text">Criação da conta, configuração do plano ideal, domínio customizado, certificado SSL e todas as configurações técnicas iniciais. Loja 100% funcional desde o dia 1.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Pronto em 24h</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">02</div>
+      <div class="deliv-title">Design Personalizado</div>
+      <div class="deliv-text">Tema customizado do zero com identidade visual da sua marca. Layout responsivo, mobile-first e otimizado para conversão. Inclui páginas: Home, Produto, Coleção, Sobre e Contato.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Até 10 páginas</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">03</div>
+      <div class="deliv-title">Catálogo de Produtos</div>
+      <div class="deliv-text">Cadastro de produtos com fotos otimizadas, descrições com SEO, variantes (tamanho, cor, etc.), preços, coleções organizadas e tags para filtro avançado.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Até 50 produtos</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">04</div>
+      <div class="deliv-title">Checkout & Pagamentos</div>
+      <div class="deliv-text">Integração com gateways brasileiros (App Max, PagSeguro, Pix, boleto, cartão). Checkout otimizado para reduzir abandono de carrinho e aumentar conversão.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Multi-gateway</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">05</div>
+      <div class="deliv-title">SEO & Performance</div>
+      <div class="deliv-text">Otimização técnica completa: meta tags, Open Graph, sitemap.xml, robots.txt, schema markup e compressão de imagens. Velocidade acima de 90 no PageSpeed Insights.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Score 90+</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">06</div>
+      <div class="deliv-title">Integrações & Apps</div>
+      <div class="deliv-text">WhatsApp Business, Pixel Meta, Google Analytics 4, e-mail marketing, recuperação de carrinho abandonado e notificações automáticas para clientes e loja.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Apps inclusos</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">07</div>
+      <div class="deliv-title">Frete & Logística</div>
+      <div class="deliv-text">Configuração completa de frete: integração com Correios, Melhor Envio, cálculo automático por CEP, frete grátis por valor mínimo e rastreamento de pedidos.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Multi-transportadora</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">08</div>
+      <div class="deliv-title">Pop-ups & Conversão</div>
+      <div class="deliv-text">Configuração de pop-ups de captura de leads, timer de urgência, aviso de estoque baixo, prova social e upsell no checkout para aumentar o valor médio do pedido.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> CRO incluso</div>
+    </div>
+    <div class="deliv-item reveal-scale">
+      <div class="deliv-num">09</div>
+      <div class="deliv-title">Treinamento & Suporte</div>
+      <div class="deliv-text">Sessão de treinamento de 1h para você gerenciar tudo sozinho. Material em vídeo gravado, documentação e 30 dias de suporte pós-entrega para dúvidas e ajustes.</div>
+      <div class="deliv-check"><div class="deliv-check-dot"></div> Suporte 30 dias</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-tag reveal">Como funciona</div>
+  <h2 class="reveal">Prazos & <span style="color:var(--accent)">Entregas</span></h2>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 01</div>
+      <div class="timeline-title">Análise & Proposta</div>
+      <div class="timeline-desc">Estudo do seu negócio, nicho e concorrentes. Alinhamento de briefing, expectativas e definição do escopo completo do projeto.</div>
+      
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 02</div>
+      <div class="timeline-title">Contrato & Pagamento</div>
+      <div class="timeline-desc">Formalização do contrato digital via DocuSign. Primeiro pagamento confirmado e início imediato do projeto.</div>
+      
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 03</div>
+      <div class="timeline-title">Briefing & Kickoff</div>
+      <div class="timeline-desc">Reunião de kickoff para coleta de materiais: logo, fotos de produto, textos, paleta de cores, referências visuais e acesso à loja Shopify.</div>
+      
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 04</div>
+      <div class="timeline-title">Design & Desenvolvimento</div>
+      <div class="timeline-desc">Construção completa da loja: design, páginas, produtos e integrações. Você acompanha o progresso com acesso preview em tempo real.</div>
+      
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 05</div>
+      <div class="timeline-title">Aprovação & Ajustes</div>
+      <div class="timeline-desc">Apresentação da loja completa para sua aprovação. Uma rodada de ajustes incluída sem custo adicional.</div>
+      
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-step">Etapa 06</div>
+      <div class="timeline-title">🚀 Entrega & Treinamento</div>
+      <div class="timeline-desc">Loja publicada e ao vivo. Transferência de todos os acessos e sessão de treinamento gravada para você gerenciar tudo com autonomia.</div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="investment" id="investment">
+  <div class="section-tag reveal">Quanto custa</div>
+  <h2 class="reveal">Seu <span>investimento</span></h2>
+
+  <div class="invest-grid">
+    <div class="invest-card reveal-left">
+      <div class="invest-card-tag">Serviço Principal</div>
+      <div class="invest-card-title">E-commerce Shopify Completo</div>
+      <ul class="invest-card-items">
+        <li>Setup e configuração da plataforma</li>
+        <li>Design personalizado (até 10 páginas)</li>
+        <li>Cadastro de até 50 produtos com SEO</li>
+        <li>Integração de pagamentos (Pix, cartão, boleto)</li>
+        <li>Configuração de frete (Correios + Melhor Envio)</li>
+        <li>SEO técnico e performance 90+</li>
+        <li>Automação de e-mails transacionais</li>
+        <li>Recuperação de carrinho abandonado</li>
+        <li><strong>Pop-ups de conversão e upsell</strong></li>
+        <li><strong>Treinamento gravado de uso</strong></li>
+      </ul>
+    </div>
+    <div class="invest-card reveal-right">
+      <div class="invest-card-tag">Serviços Criativos & Marketing</div>
+      <div class="invest-card-title">Identidade Visual & Crescimento</div>
+      <ul class="invest-card-items">
+        <li>Criação de banners e imagens promocionais</li>
+        <li>Edição profissional de fotos dos produtos</li>
+        <li>Textos persuasivos — copywriting focado em vendas</li>
+        <li>Configuração de e-mail marketing (Klaviyo/Mailchimp)</li>
+        <li>Pixel Meta + Google Analytics 4 + Tag Manager</li>
+        <li>Configuração Google Shopping</li>
+        <li>Integração WhatsApp Business</li>
+        <li>Configuração de programa de fidelidade</li>
+        <li><strong>Chat ao vivo (Tidio ou similar)</strong></li>
+        <li><strong>30 dias de suporte pós-entrega</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shimmer-line reveal" style="margin:1.5rem 0"></div>
+
+  <div class="total-card reveal-scale">
+    <div class="total-info">
+      <div class="total-tag">✦ Valor Total do Projeto</div>
+      <div class="total-price">R$ 1.197</div>
+      <div class="old-price">De R$ 1.597</div>
+      <div class="total-note">
+        Parcelamos em até <strong style="color:var(--text)">3x sem juros</strong>.<br>
+        <strong style="color:var(--text)">10% de desconto</strong> no pagamento à vista via Pix.
+      </div>
+    </div>
+    <div class="total-cta">
+      <div class="discount-badge">25% OFF<br><span style="font-size:11px;font-weight:400">por tempo limitado</span></div>
+      <button class="btn-primary" onclick="window.open('https://wa.me/5562991865807','_blank')">
+  Quero começar →
+</button>
+      <div style="font-size:11px;color:var(--muted);text-align:right">Proposta válida por 7 dias</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="footer-cta-glow"></div>
+  <div class="section-tag reveal" style="justify-content:center">Próximo passo</div>
+  <h2 class="reveal">
+    Pronto para <span class="outline">elevar</span><br>
+    sua marca a um<br>
+    <span style="color:var(--accent)">novo nível?</span>
+  </h2>
+  <p class="reveal">
+    Cada dia sem uma loja profissional é dinheiro deixado na mesa.
+    Vamos construir algo que realmente venda.
+  </p>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center" class="reveal">
+  <button class="btn-primary" style="font-size:16px;padding:17px 44px" onclick="window.location.href='https://wa.me/5562991865807'">
+    Quero minha loja Shopify →
+  </button>
+
+  <button class="btn-ghost" onclick="window.open('https://wa.me/5562991865807','_blank')">
+    💬 Falar no WhatsApp
+  </button>
+</div>
+  <p style="margin-top:2rem;font-size:12px;color:var(--muted)" class="reveal">
+    Resposta garantida em até 2 horas · Sem compromisso
+  </p>
+</section>
+
+<footer class="footer-bottom">
+  <div class="footer-bottom-logo">
+    <img src="/Logo Splendor.svg" alt="Logo">
+  </div>
+  <div class="footer-bottom-text">© 2026 · Proposta Comercial · Todos os direitos reservados</div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('button,a,.gallery-card,.metric-box,.deliv-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursorRing.style.width='64px';cursorRing.style.height='64px';cursorRing.style.borderColor='rgba(200,245,58,0.6)'});
+  el.addEventListener('mouseleave',()=>{cursorRing.style.width='44px';cursorRing.style.height='44px';cursorRing.style.borderColor='rgba(200,245,58,0.35)'});
+});
+
+// PARTICLES
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight});
+const pts=Array.from({length:70},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-0.5)*0.25,vy:(Math.random()-0.5)*0.25,r:Math.random()*1.2+0.4}));
+function drawParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(176,111,255,0.7)';ctx.fill();
+  });
+  pts.forEach((p,i)=>{pts.slice(i+1).forEach(q=>{
+    const d=Math.hypot(p.x-q.x,p.y-q.y);
+    if(d<130){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+    ctx.strokeStyle=`rgba(176,111,255,${(1-d/130)*0.12})`;ctx.lineWidth=0.5;ctx.stroke();}
+  })});
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// GSAP
+gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+// HERO
+const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+tl.to('#hero-tag',{opacity:1,y:0,duration:0.9,delay:0.2})
+  .to('#hero-title',{opacity:1,y:0,duration:1.1},'-=0.5')
+  .to('#hero-desc',{opacity:1,y:0,duration:0.9},'-=0.7')
+  .to('#hero-cta',{opacity:1,y:0,duration:0.8},'-=0.6')
+  .to('#hero-stats',{opacity:1,y:0,duration:0.8},'-=0.5')
+  .to('#scroll-hint',{opacity:1,duration:0.6},'-=0.2');
+
+// AURORA BLOBS - opacity on load
+gsap.to('.aurora-blob',{opacity:1,duration:2,stagger:0.5,ease:'power2.out'});
+
+// COUNT-UP
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const target=+el.dataset.count;
+  ScrollTrigger.create({trigger:el,start:'top 80%',once:true,onEnter:()=>{
+    gsap.to({val:0},{val:target,duration:1.8,ease:'power2.out',onUpdate:function(){
+      const v=Math.round(this.targets()[0].val);
+      el.textContent=v+(target===98?'':target===50?'+':'');
+    }});
+  }});
+});
+
+// SCROLL REVEALS
+gsap.utils.toArray('.reveal').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,y:50},{opacity:1,y:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none reverse'}});
+});
+gsap.utils.toArray('.reveal-left').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,x:-55},{opacity:1,x:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none reverse'}});
+});
+gsap.utils.toArray('.reveal-right').forEach(el=>{
+  gsap.fromTo(el,{opacity:0,x:55},{opacity:1,x:0,duration:1,ease:'power3.out',
+    scrollTrigger:{trigger:el,start:'top 87%',toggleActions:'play none none reverse'}});
+});
+gsap.utils.toArray('.reveal-scale').forEach((el,i)=>{
+  gsap.fromTo(el,{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.8,ease:'back.out(1.5)',delay:i*0.06,
+    scrollTrigger:{trigger:el,start:'top 88%',toggleActions:'play none none reverse'}});
+});
+
+// GALLERY DRAG
+const track=document.getElementById('galleryTrack');
+let isDragging=false,startX=0,scrollLeft=0;
+track.addEventListener('mousedown',e=>{isDragging=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.parentElement.scrollLeft});
+track.addEventListener('mouseleave',()=>{isDragging=false});
+track.addEventListener('mouseup',()=>{isDragging=false});
+track.addEventListener('mousemove',e=>{if(!isDragging)return;e.preventDefault();const x=e.pageX-track.offsetLeft;const walk=(x-startX)*1.5;track.parentElement.scrollLeft=scrollLeft-walk});
+
+// AUTO-SCROLL GALLERY
+let autoScrollX=0,paused=false;
+track.addEventListener('mouseenter',()=>paused=true);
+track.addEventListener('mouseleave',()=>paused=false);
+function autoGallery(){
+  if(!paused&&!isDragging){
+    autoScrollX+=0.5;
+    const maxScroll=track.scrollWidth/2;
+    if(autoScrollX>=maxScroll)autoScrollX=0;
+    track.style.transform=`translateX(-${autoScrollX}px)`;
+  }
+  requestAnimationFrame(autoGallery);
+}
+autoGallery();
+
+// MAGNETIC BUTTONS
+document.querySelectorAll('.btn-primary').forEach(btn=>{
+  btn.addEventListener('mousemove',e=>{
+    const r=btn.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2;
+    const y=e.clientY-r.top-r.height/2;
+    gsap.to(btn,{x:x*0.22,y:y*0.22,duration:0.35,ease:'power2.out'});
+  });
+  btn.addEventListener('mouseleave',()=>{gsap.to(btn,{x:0,y:0,duration:0.6,ease:'elastic.out(1,0.4)'})});
+});
+
+// NAV SCROLL
+ScrollTrigger.create({
+  start:'top -80',
+  onUpdate:(self)=>{
+    document.querySelector('nav').style.background=self.progress>0?'rgba(5,5,8,0.88)':'rgba(5,5,8,0.55)';
+  }
+});
+
+// DELIV ITEMS STAGGER
+ScrollTrigger.create({
+  trigger:'.deliv-grid',start:'top 72%',once:true,
+  onEnter:()=>{
+    gsap.fromTo('.deliv-item',{opacity:0,y:45},{opacity:1,y:0,duration:0.7,stagger:0.09,ease:'power3.out'});
+  }
+});
+
+// HERO TITLE - word by word effect
+gsap.set('#hero-title .line',{y:100,opacity:0});
+gsap.to('#hero-title .line',{y:0,opacity:1,duration:1,stagger:0.12,ease:'power4.out',delay:0.5});
+
+// PARALLAX
+gsap.to('.hero-grid-bg',{
+  yPercent:20,ease:'none',
+  scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}
+});
+
+// TIMELINE ITEMS
+gsap.utils.toArray('.timeline-item').forEach((item,i)=>{
+  gsap.fromTo(item,{opacity:0,x:-30},{opacity:1,x:0,duration:0.8,ease:'power3.out',
+    delay:i*0.05,
+    scrollTrigger:{trigger:item,start:'top 85%',toggleActions:'play none none reverse'}
+  });
+});
+</script>
+</body>
+</html>
